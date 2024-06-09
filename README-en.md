@@ -1,6 +1,6 @@
 # Mandarin
 
-* [中文版](#)
+* [中文版](https://github.com/2079541547/Mandarin/blob/main/README.md)
 * A high-level scripting language based on C++, featuring multiple execution modes:
   
   1. Commented Execution
