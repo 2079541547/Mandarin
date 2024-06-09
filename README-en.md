@@ -19,10 +19,10 @@
 * ## Performance
   
   | Operation Mode     | print Loop 100,000 Times | print 2MB String |
-| ------------------ | ------------------------ | ---------------- |
-| Commented Run      |                          |                  |
-| Just-In-Time (JIT) |                          |                  |
-| Compiled Run       |                          |                  |
+  | ------------------ | ------------------------ | ---------------- |
+  | Commented Run      |                          |                  |
+  | Just-In-Time (JIT) |                          |                  |
+  | Compiled Run       |                          |                  |
   
   
 
