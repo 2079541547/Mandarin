@@ -1,6 +1,6 @@
 # Mandarin
 
-* [👉️ English]()
+* [👉️ English](https://github.com/2079541547/Mandarin/blob/main/README-en.md)
 * 一门基于C++的高级脚步语言, 拥有多种运行模式:
   
   > 1. 注释运行
