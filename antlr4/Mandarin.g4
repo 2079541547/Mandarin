@@ -1,9 +1,6 @@
 grammar Mandarin;
 
 
-
-
-
 /*
 --------------------------------------------------------------------------------------
 --                                     运算符定义
@@ -108,8 +105,6 @@ FILE: 'file';
 DOUBLE: 'double';
 DATE: 'date';
 TIME: 'time';
-TIMESTAMP: 'timestamp';
-DATETIME: 'datetime';
 UUID: 'uuid';
 MAP: 'map';
 ANY: 'any';
@@ -150,13 +145,54 @@ THIS: 'this';
 SUPER: 'super';
 
 
+
 /*
 --------------------------------------------------------------------------------------
---                                    类型定义 
+--                                     标识符定义
 -------------------------------------------------------------------------------------- 
 */
 
+fragment Digit: [0-9]; /* 10进制数字范围 */
+fragment HexDigit: [0-9a-fA-F]; /* 16进制数字范围 */
 
+/* 数字 */
+INTEGER_LITERAL: ( ADD | SUB )? Digit+;
+
+/* 字符串 */
+STRING_LITERAL: QUOTE2 (ESC|.)*? QUOTE2;
+
+/* bool值 */
+BOOLEAN_LITERAL: 'true' | 'false';
+
+/* 浮点数 */
+FLOAT_LITERAL: ( ADD | SUB )? Digit+ DOT Digit+;
+
+/* 字节 */
+BYTE_LITERAL: '0x'+HexDigit+;
+
+/* 时间 */
+TIMEVALUE: ([0-23] | [0-12]) COLON [0-59] COLON [0-59];
+
+/* UUID */
+UUID_VALUE: HexDigit{8} SUB HexDigit{4} SUB HexDigit{4} SUB HexDigit{4} SUB HexDigit{12};
+
+/* MAP */
+MAP_VALUE: LBRACE (STRING_LITERAL COLON (INTEGER_LITERAL | STRING_LITERAL | BOOLEAN_LITERAL | FLOAT_LITERAL | BYTE)* COMMA?)*? RBRACE;
+
+/* 任何值 */
+ANY_VALUE: (INTEGER_LITERAL | STRING_LITERAL | BOOLEAN_LITERAL | FLOAT_LITERAL | BYTE | TIMEVALUE | UUID_VALUE | MAP_VALUE);
+
+/* 返回值 */
+RETURN_VALUE: RETURN ' ' ANY_VALUE;
+
+/*
+--------------------------------------------------------------------------------------
+--                                     语法定义
+-------------------------------------------------------------------------------------- 
+*/
+
+/* 打印语句 */
+PRINT_STATEMENT: PRINT LBRACE (ANY_VALUE  (COMMA ANY_VALUE)* COMMA?)? RBRACE;
 
 
 
@@ -169,6 +205,7 @@ SUPER: 'super';
   */
 
 WS: [ \t\r\n]+ -> channel(HIDDEN); // 忽略空白字符
+ESC: '\\' ('b'|'t'|'n'|'f'|'r'|'"'|'\''|'\\'|'/'|'u'+HexDigit+); // 转义字符
 SL_COMMENT: '//' .*? '\n' -> channel(HIDDEN); // 单行注释
 ML_COMMENT: '/*' .*? '*/' -> channel(HIDDEN); // 多行注释
 
