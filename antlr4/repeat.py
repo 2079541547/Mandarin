@@ -26,20 +26,30 @@ import sys
 
 def check_duplicates_in_file(filename):
     """
-    分析ANTLR语法文件，找出其中的重复规则定义及其位置。
+    分析ANTLR语法文件，找出其中的重复规则定义及其位置，包括rules和tokens部分。
     """
-    rule_pattern = re.compile(r'(\w+)\s*:')
+    # 调整正则表达式以匹配规则和tokens定义
+    rule_pattern = re.compile(r'(?:\b(\w+)\s*:|tokens\s*\{\s*(\w+))')
     rule_positions = defaultdict(list)
     
     with open(filename, 'r', encoding='utf-8') as file:
+        in_tokens_block = False
         for linenumber, line in enumerate(file, start=1):
-            match = rule_pattern.match(line)
-            if match:
-                rule_name = match.group(1)
-                rule_positions[rule_name].append((filename, linenumber))
+            # 简单标记是否在tokens块内，实际ANTLR语法更复杂，这里简化处理
+            if "tokens {" in line:
+                in_tokens_block = True
+            elif "}" in line and in_tokens_block:
+                in_tokens_block = False
+            
+            matches = rule_pattern.findall(line)
+            for match in matches:
+                # 添加对tokens定义的支持，忽略空匹配
+                for rule_name in filter(None, match):
+                    rule_positions[rule_name].append((filename, linenumber))
                 
     duplicates = {rule: positions for rule, positions in rule_positions.items() if len(positions) > 1}
     return duplicates
+
 
 def check_folder_for_duplicates(folder_path):
     """
