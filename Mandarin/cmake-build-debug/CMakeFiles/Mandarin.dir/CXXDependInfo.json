@@ -1,0 +1,18 @@
+{
+	"bmi-installation" : null,
+	"compiler-frontend-variant" : "GNU",
+	"compiler-id" : "GNU",
+	"compiler-simulate-id" : "",
+	"config" : "Debug",
+	"cxx-modules" : {},
+	"dir-cur-bld" : "/home/eternalfuture/\u6587\u6863/GitHub/Mandarin/Mandarin/cmake-build-debug",
+	"dir-cur-src" : "/home/eternalfuture/\u6587\u6863/GitHub/Mandarin/Mandarin",
+	"dir-top-bld" : "/home/eternalfuture/\u6587\u6863/GitHub/Mandarin/Mandarin/cmake-build-debug",
+	"dir-top-src" : "/home/eternalfuture/\u6587\u6863/GitHub/Mandarin/Mandarin",
+	"exports" : [],
+	"forward-modules-from-target-dirs" : [],
+	"include-dirs" : [],
+	"language" : "CXX",
+	"linked-target-dirs" : [],
+	"module-dir" : "/home/eternalfuture/\u6587\u6863/GitHub/Mandarin/Mandarin/cmake-build-debug/CMakeFiles/Mandarin.dir"
+}
